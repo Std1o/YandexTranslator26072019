@@ -58,27 +58,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="240dp"
+        android:layout_marginTop="230dp"
         android:layout_marginRight="140dp"
         android:text="Узбекский - Русский" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageView
         android:id="@+id/FABSwap"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginLeft="250dp"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="220dp"
         android:clickable="true"
         android:onClick="swap"
-        app:backgroundTint="@android:color/background_light"
         app:srcCompat="@drawable/swap" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="260dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/selector_lines_edit_view_bg">
 

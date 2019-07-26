@@ -4,6 +4,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Rect;
@@ -17,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +32,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.pedromassango.doubleclick.DoubleClick;
+import com.pedromassango.doubleclick.DoubleClickListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -97,7 +103,28 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
         tvLanguage = findViewById(R.id.tvLang);
         FABClear = findViewById(R.id.FABClear);
         setEditTextOnChangeListener();
+        setDoubleTapListener();
     }
+
+    private void setDoubleTapListener() {
+        tvTranslatedText.setOnClickListener( new DoubleClick(new DoubleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+
+                // Single tap here.
+            }
+
+            @Override
+            public void onDoubleClick(View view) {
+                ClipboardManager clipboard = (ClipboardManager) MainActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("", tvTranslatedText.getText().toString());
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(MainActivity.this, "Перевод скопирован", Toast.LENGTH_SHORT).show();
+            }
+        }));
+    }
+
+
 
     public void swap(View view) {
         if (currentLang.equals("uz-ru")) {
