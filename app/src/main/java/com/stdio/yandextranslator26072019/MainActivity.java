@@ -3,6 +3,7 @@ package com.stdio.yandextranslator26072019;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Rect;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
     TextView tvTranslatedText, tvLanguage;
     FloatingActionButton FABSwap, FABClear;
     String result;
-    String currentLang = "en-ru";
+    String currentLang = "uz-ru";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,12 +103,21 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
     }
 
     public void swap(View view) {
-        if (currentLang.equals("en-ru")) {
-            currentLang = "ru-en";
-            tvLanguage.setText("Russian to English");
-        } else {
-            currentLang = "en-ru";
-            tvLanguage.setText("English to Russian");
+        if (currentLang.equals("uz-ru")) {
+            currentLang = "ru-uz";
+            tvLanguage.setText("Русский - Узбекский");
+        }
+        else if (currentLang.equals("tg-ru")) {
+            currentLang = "ru-tg";
+            tvLanguage.setText("Русский - Таджикский");
+        }
+        else if (currentLang.equals("ru-uz")) {
+            currentLang = "uz-ru";
+            tvLanguage.setText("Узбекский - Русский");
+        }
+        else if (currentLang.equals("ru-tg")) {
+            currentLang = "tg-ru";
+            tvLanguage.setText("Таджикский - Русский");
         }
         et.setText(tvTranslatedText.getText().toString());
         et.setSelection(et.getText().length());
@@ -139,6 +149,36 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
 
         // show it
         alertDialog.show();
+    }
+
+    public void showSelectModeDialog(View view) {
+        showDialog(0);
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        final String[] mCatsName ={"Узбекский - Русский", "Таджикский - Русский"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Выберите режим"); // заголовок для диалога
+
+        builder.setItems(mCatsName, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (mCatsName[item].equals("Узбекский - Русский")) {
+                    currentLang = "uz-ru";
+                    tvLanguage.setText("Узбекский - Русский");
+                    translate();
+                }
+                else if (mCatsName[item].equals("Таджикский - Русский")) {
+                    currentLang = "tg-ru";
+                    tvLanguage.setText("Таджикский - Русский");
+                    translate();
+                }
+            }
+        });
+        builder.setCancelable(false);
+        return builder.create();
     }
 
     private void setEditTextOnChangeListener() {

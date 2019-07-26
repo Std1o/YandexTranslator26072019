@@ -31,6 +31,8 @@
                 android:layout_height="35dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="15dp"
+                android:clickable="true"
+                android:onClick="showSelectModeDialog"
                 app:srcCompat="@drawable/set" />
         </RelativeLayout>
 
@@ -56,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="230dp"
-        android:text="English to Russian" />
+        android:text="Узбекский - Русский" />
 
     <ScrollView
         android:layout_width="match_parent"
