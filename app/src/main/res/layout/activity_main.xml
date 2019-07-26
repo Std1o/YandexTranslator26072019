@@ -22,9 +22,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
+                android:text="@string/app_name"
                 android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:text="@string/app_name"/>
+                android:textSize="20sp" />
+
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="35dp"
@@ -42,8 +43,8 @@
         android:id="@+id/et"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_marginTop="70dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="70dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/selector_lines_edit_view_bg"
         android:ems="10"
@@ -57,13 +58,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="240dp"
+        android:layout_marginRight="140dp"
         android:text="Узбекский - Русский" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/FABSwap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="230dp"
+        android:clickable="true"
+        android:onClick="swap"
+        app:backgroundTint="@android:color/background_light"
+        app:srcCompat="@drawable/swap" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="260dp">
+        android:layout_height="150dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/selector_lines_edit_view_bg">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -72,27 +89,17 @@
 
             <TextView
                 android:id="@+id/tvTranslatedText"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_gravity="center_horizontal" />
+                android:ems="10"
+                android:gravity="top"
+                android:padding="10dp"
+                android:textColor="@android:color/black"/>
+
         </LinearLayout>
+
     </ScrollView>
 
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/FABSwap"
-        app:backgroundTint="@android:color/background_light"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:layout_marginBottom="100dp"
-        android:layout_marginRight="16dp"
-        android:onClick="swap"
-        android:layout_gravity="bottom|end"
-        app:srcCompat="@drawable/swap" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/FABClear"

@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
 
     EditText et;
     TextView tvTranslatedText, tvLanguage;
-    FloatingActionButton FABSwap, FABClear;
+    FloatingActionButton FABClear;
     String result;
     String currentLang = "uz-ru";
 
@@ -85,10 +85,8 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
     @Override
     public void onVisibilityChanged(boolean visible) {
         if (visible) {
-            FABSwap.hide();
             FABClear.hide();
         } else {
-            FABSwap.show();
             FABClear.show();
         }
     }
@@ -97,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
         et = findViewById(R.id.et);
         tvTranslatedText = findViewById(R.id.tvTranslatedText);
         tvLanguage = findViewById(R.id.tvLang);
-        FABSwap = findViewById(R.id.FABSwap);
         FABClear = findViewById(R.id.FABClear);
         setEditTextOnChangeListener();
     }
