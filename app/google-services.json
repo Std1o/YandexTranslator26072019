@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "97637357562",
+    "firebase_url": "https://yandextranslator26072019.firebaseio.com",
+    "project_id": "yandextranslator26072019",
+    "storage_bucket": "yandextranslator26072019.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:97637357562:android:d0850f72db63dc70",
+        "android_client_info": {
+          "package_name": "com.stdio.yandextranslator26072019"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "97637357562-8qhmepju88jbsqd46g8ds6j7hg6ndhgm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.stdio.yandextranslator26072019",
+            "certificate_hash": "18e254fd3d34e473405a6fa6f5fca10d99fb66c4"
+          }
+        },
+        {
+          "client_id": "97637357562-aui3vsli2l6573a4k92oqmejg7o1hbn8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnw1l6EXl7wkBnw5tpMYNdn7C0oqEV57I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "97637357562-aui3vsli2l6573a4k92oqmejg7o1hbn8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
