@@ -98,8 +98,10 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
     public void onVisibilityChanged(boolean visible) {
         if (visible) {
             FABClear.hide();
+            mAdView.setVisibility(View.GONE);
         } else {
             FABClear.show();
+            mAdView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -110,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
         FABClear = findViewById(R.id.FABClear);
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("74F085F66C1A111A09027CC90265B556")
+               // .addTestDevice("74F085F66C1A111A09027CC90265B556")
                 .build();
         System.out.println("AAAAAAAAAAAA" + adRequest.isTestDevice(this));
         mAdView.loadAd(adRequest);
