@@ -290,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                        Log.e("VolleyError аы", error.getMessage());
                     }
                 }) {
             @Override
