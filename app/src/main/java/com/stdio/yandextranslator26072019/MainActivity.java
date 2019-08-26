@@ -282,8 +282,7 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
                             result = result.replaceAll("\"", "");
                             tvTranslatedText.setText(result);
                         } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                            Log.e("JSONException аы", e.getMessage());
                         }
                     }
 
