@@ -44,6 +44,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements OnKeyboardVisibilityListener {
 
@@ -282,7 +283,9 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
                             result = result.replaceAll("\"", "");
                             tvTranslatedText.setText(result);
                         } catch (JSONException e) {
-                            Log.e("JSONException аы", e.getMessage());
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                Log.e("JSONException аы", Objects.requireNonNull(e.getMessage()));
+                            }
                         }
                     }
 
@@ -290,7 +293,9 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("VolleyError аы", error.getMessage());
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                            Log.e("VolleyError аы", Objects.requireNonNull(error.getMessage()));
+                        }
                     }
                 }) {
             @Override
