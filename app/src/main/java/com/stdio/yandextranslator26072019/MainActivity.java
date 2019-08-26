@@ -266,7 +266,12 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
 
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                translate();
+                if (et.getText().toString().isEmpty()) {
+                    tvTranslatedText.setText("");
+                }
+                else {
+                    translate();
+                }
             }
         });
     }
