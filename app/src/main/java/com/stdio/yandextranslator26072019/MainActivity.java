@@ -258,6 +258,9 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
         et.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
+                if (et.getText().toString().isEmpty()) {
+                    tvTranslatedText.setText("");
+                }
             }
 
             public void beforeTextChanged(CharSequence s, int start,
