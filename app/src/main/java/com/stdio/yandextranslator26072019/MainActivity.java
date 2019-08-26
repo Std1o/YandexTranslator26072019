@@ -283,8 +283,8 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
                             result = result.replaceAll("\"", "");
                             tvTranslatedText.setText(result);
                         } catch (JSONException e) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                                Log.e("JSONException аы", Objects.requireNonNull(e.getMessage()));
+                            if (e.getMessage() != null) {
+                                Log.e("JSONException аы", e.getMessage());
                             }
                         }
                     }
@@ -293,8 +293,8 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                            Log.e("VolleyError аы", Objects.requireNonNull(error.getMessage()));
+                        if (error.getMessage() != null) {
+                            Log.e("VolleyError аы", error.getMessage());
                         }
                     }
                 }) {
