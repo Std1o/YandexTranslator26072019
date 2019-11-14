@@ -121,15 +121,9 @@
         app:backgroundTint="@android:color/background_light"
         app:srcCompat="@drawable/clear" />
 
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
+    <com.yandex.mobile.ads.AdView
+        android:id="@+id/banner_view"
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3024705759390244/9209379297">
-    </com.google.android.gms.ads.AdView>
+        android:layout_height="wrap_content"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

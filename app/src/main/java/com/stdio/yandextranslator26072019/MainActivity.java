@@ -1,5 +1,6 @@
 package com.stdio.yandextranslator26072019;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,13 +32,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pedromassango.doubleclick.DoubleClick;
 import com.pedromassango.doubleclick.DoubleClickListener;
+import com.yandex.metrica.YandexMetrica;
+import com.yandex.metrica.YandexMetricaConfig;
+import com.yandex.mobile.ads.AdEventListener;
+import com.yandex.mobile.ads.AdRequest;
+import com.yandex.mobile.ads.AdRequestError;
+import com.yandex.mobile.ads.AdSize;
+import com.yandex.mobile.ads.AdView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,12 +62,22 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
     String result;
     String currentLang = "uz-ru";
     private AdView mAdView;
+    String AD_API_KEY = "bcba2c29-77f1-4a77-a449-841e98c724ab";
+    String BLOCK_ID = "R-M-472333-1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        MobileAds.initialize(this, "ca-app-pub-3024705759390244~3123263346");
+        //MobileAds.initialize(this, "ca-app-pub-3024705759390244~3123263346");
+
+        // Creating an extended library configuration.
+        YandexMetricaConfig config = YandexMetricaConfig.newConfigBuilder(AD_API_KEY).build();
+        // Initializing the AppMetrica SDK.
+        YandexMetrica.activate(getApplicationContext(), config);
+        // Automatic tracking of user activity.
+        YandexMetrica.enableActivityAutoTracking(getApplication());
+
         initViews();
         setKeyboardVisibilityListener(this);
     }
@@ -111,48 +125,30 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
         tvTranslatedText = findViewById(R.id.tvTranslatedText);
         tvLanguage = findViewById(R.id.tvLang);
         FABClear = findViewById(R.id.FABClear);
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder()
-               // .addTestDevice("74F085F66C1A111A09027CC90265B556")
-                .build();
-        System.out.println("AAAAAAAAAAAA" + adRequest.isTestDevice(this));
-        mAdView.loadAd(adRequest);
         setEditTextOnChangeListener();
         setDoubleTapListener();
-        mAdView.setAdListener(new AdListener() {
+
+        mAdView = (AdView) findViewById(R.id.banner_view);
+        mAdView.setBlockId(BLOCK_ID);
+        mAdView.setAdSize(AdSize.BANNER_320x50);
+        final AdRequest adRequest = new AdRequest.Builder().build();
+
+        // Регистрация слушателя для отслеживания событий, происходящих в баннерной рекламе.
+        mAdView.setAdEventListener(new AdEventListener.SimpleAdEventListener() {
+            @Override
+            public void onAdFailedToLoad(@NonNull AdRequestError error) {
+                super.onAdFailedToLoad(error);
+                System.out.println(error.getDescription());
+            }
+
             @Override
             public void onAdLoaded() {
-                // Code to be executed when an ad finishes loading.
-            }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                // Code to be executed when an ad request fails.
-                Log.wtf("helppp", String.valueOf(errorCode));
-            }
-
-            @Override
-            public void onAdOpened() {
-                // Code to be executed when an ad opens an overlay that
-                // covers the screen.
-            }
-
-            @Override
-            public void onAdClicked() {
-                // Code to be executed when the user clicks on an ad.
-            }
-
-            @Override
-            public void onAdLeftApplication() {
-                // Code to be executed when the user has left the app.
-            }
-
-            @Override
-            public void onAdClosed() {
-                // Code to be executed when the user is about to return
-                // to the app after tapping on an ad.
+               System.out.println(adRequest.getParameters());
             }
         });
+
+        // Загрузка объявления.
+        mAdView.loadAd(adRequest);
     }
 
     private void setDoubleTapListener() {
