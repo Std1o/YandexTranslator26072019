@@ -42,6 +42,8 @@ import com.yandex.mobile.ads.AdRequest;
 import com.yandex.mobile.ads.AdRequestError;
 import com.yandex.mobile.ads.AdSize;
 import com.yandex.mobile.ads.AdView;
+import com.yandex.mobile.ads.InterstitialAd;
+import com.yandex.mobile.ads.InterstitialEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,6 +51,13 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements OnKeyboardVisibilityListener {
 
@@ -64,12 +73,14 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
     private AdView mAdView;
     String AD_API_KEY = "bcba2c29-77f1-4a77-a449-841e98c724ab";
     String BLOCK_ID = "R-M-472333-1";
+    String BLOCK_ID_2 = "R-M-472333-2";
+    InterstitialAd mInterstitialAd;
+    private final CompositeDisposable disposables = new CompositeDisposable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //MobileAds.initialize(this, "ca-app-pub-3024705759390244~3123263346");
 
         // Creating an extended library configuration.
         YandexMetricaConfig config = YandexMetricaConfig.newConfigBuilder(AD_API_KEY).build();
@@ -77,9 +88,43 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
         YandexMetrica.activate(getApplicationContext(), config);
         // Automatic tracking of user activity.
         YandexMetrica.enableActivityAutoTracking(getApplication());
+        mInterstitialAd = new InterstitialAd(this);
 
         initViews();
         setKeyboardVisibilityListener(this);
+    }
+
+    private void initTimer() {
+        disposables.add(getObservable()
+                // Run on a background thread
+                .subscribeOn(Schedulers.io())
+                // Be notified on the main thread
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserver()));
+    }
+
+    private Observable<? extends Long> getObservable() {
+        return Observable.interval(300, 300, TimeUnit.SECONDS);
+    }
+
+    private DisposableObserver<Long> getObserver() {
+        return new DisposableObserver<Long>() {
+
+            @Override
+            public void onNext(Long value) {
+                mInterstitialAd.show();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
     }
 
     private void setKeyboardVisibilityListener(final OnKeyboardVisibilityListener onKeyboardVisibilityListener) {
@@ -128,6 +173,8 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
         setEditTextOnChangeListener();
         setDoubleTapListener();
 
+        mInterstitialAd.setBlockId(BLOCK_ID);
+
         mAdView = (AdView) findViewById(R.id.banner_view);
         mAdView.setBlockId(BLOCK_ID);
         mAdView.setAdSize(AdSize.BANNER_320x50);
@@ -146,9 +193,16 @@ public class MainActivity extends AppCompatActivity implements OnKeyboardVisibil
                System.out.println(adRequest.getParameters());
             }
         });
+        mInterstitialAd.setInterstitialEventListener(new InterstitialEventListener.SimpleInterstitialEventListener() {
+            @Override
+            public void onInterstitialLoaded() {
+                initTimer();
+            }
+        });
 
         // Загрузка объявления.
         mAdView.loadAd(adRequest);
+        mInterstitialAd.loadAd(adRequest);
     }
 
     private void setDoubleTapListener() {
